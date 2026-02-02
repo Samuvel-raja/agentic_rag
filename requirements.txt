@@ -6,9 +6,10 @@ langchain-qdrant
 qdrant-client
 langchain-classic
 pydantic-settings
-# langchain-experimental
+langchain-experimental
 langchain-text-splitters
 fastapi
 uvicorn[standard]
 pypdf
 python-multipart
+langchain-neo4j

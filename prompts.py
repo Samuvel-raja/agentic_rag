@@ -21,7 +21,9 @@ class PromptTemplates:
                 """
                 You are decision making agent.
            
-                if the question is science based or related to science, return "retrieve" else return "generate_answer"
+                if the question is science based or related to science,
+                else if the question is related to chemistry return graph_traversal_retreiver
+                else return "generate_answer"
                 Question: {question}
                 
                 """

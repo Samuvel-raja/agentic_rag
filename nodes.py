@@ -1,8 +1,9 @@
 from llm import get_llm
-from vectorstore import get_vectorstore
+from vectorstore import get_neo4h_graph, get_vectorstore
 from state import AgenticRagState
 from prompts import PromptTemplates
 from langchain_core.output_parsers import StrOutputParser
+from langchain_neo4j import GraphCypherQAChain
 
 class Nodes:
     def retrieve(state: AgenticRagState) -> AgenticRagState:
@@ -20,6 +21,21 @@ class Nodes:
             print("Retrieved node,Retrieved data")
             state.documents=retrieved_data
             # print("Retrieved node,Documents:",state.documents)
+            return state
+        except Exception as e:
+            print(e)
+    def graph_traversal_retreiver(state: AgenticRagState) -> AgenticRagState:
+        try:
+            graph_chain=GraphCypherQAChain.from_llm(
+            graph=get_neo4h_graph(),
+            cypher_llm=get_llm(),
+            qa_llm=get_llm(),
+            verbose=True,
+            allow_dangerous_requests=True
+        )
+            res=graph_chain.invoke({"query":state.question})
+            print("Graph traversal node,Retrieved data",res)
+            state.documents=res.result
             return state
         except Exception as e:
             print(e)

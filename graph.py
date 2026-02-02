@@ -9,13 +9,13 @@ class AgenticRagGraph:
     
     def add_nodes(self):
         self.graph.add_node("retrieve",Nodes.retrieve)
+        self.graph.add_node("graph_traversal_retreiver",Nodes.graph_traversal_retreiver)
         self.graph.add_node("generate_answer",Nodes.generate_answer)
         self.graph.add_node("decide_next",Nodes.decide_next)
 
     def entry_node(self):
          self.graph.set_entry_point("decide_next")
-    def exit_node(self):
-         self.graph.set_exit_point("decide_next")
+
     def route_decision(self,state: AgenticRagState):
         print("Route decision node",state)
         if state.iteration_count>=state.max_iterations:
@@ -24,9 +24,12 @@ class AgenticRagGraph:
             return "generate_answer"
         elif state.answer == "retrieve":
             return "retrieve"
-        
+        elif state.answer == "graph_traversal_retreiver":
+            return "graph_traversal_retreiver"
+
     def add_edge(self):
         self.graph.add_edge("retrieve","generate_answer")
+        self.graph.add_edge("graph_traversal_retreiver","generate_answer")
         self.graph.add_edge("generate_answer",END)
         
     def conditional_edges(self):
@@ -36,6 +39,7 @@ class AgenticRagGraph:
             {
                 "retrieve":"retrieve",
                 "generate_answer":"generate_answer",
+                "graph_traversal_retreiver":"graph_traversal_retreiver"
             }
             
         )
