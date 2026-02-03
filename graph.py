@@ -26,6 +26,8 @@ class AgenticRagGraph:
             return "retrieve"
         elif state.answer == "graph_traversal_retreiver":
             return "graph_traversal_retreiver"
+        else:
+            return "generate_answer"
 
     def add_edge(self):
         self.graph.add_edge("retrieve","generate_answer")

@@ -17,6 +17,7 @@ class Config(BaseSettings):
    neo4j_database:str=""
    qdrant_url:str=""
    collection_name:str=""
+  #  moonlight_api_key:str=""
   #  cohere_api_key:str=""
 
 settings=Config()
